@@ -229,21 +229,7 @@ const Mobile = () => {
         open={ProductDistribution.showMap}
         onClose={()=> { ProductDistribution.setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
-        onSelect={(location) => {
-          const maxUnits = CalUtils.maxUnits(ProductDistribution.availableUnits, location)
-          const [selectedProduct] = ProductDistribution.productState
-          ProductDistribution.setDistribution(
-            [
-              ...ProductDistribution.distribution,
-              {
-                location: location,
-                maxUnits: maxUnits,
-                cost: maxUnits*selectedProduct.price_per_unit + location.fee,
-               }
-            ]
-          )
-          ProductDistribution.setAvailableUnits(ProductDistribution.availableUnits - maxUnits)
-        }}
+        onSelect={(location) => { ProductDistribution.addLocation(location) }}
       />
     </div>
   )

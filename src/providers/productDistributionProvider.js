@@ -20,6 +20,22 @@ const Provider = ({ children }) => {
     setMaxUnits(maxProductionUnits)
   }, [productState[0], dateState[0]])
   
+  const addLocation = (location) => {
+    const maxUnits = CalUtils.maxUnits(availableUnits, location)
+    const [selectedProduct] = productState
+    setDistribution(
+      [
+        ...distribution,
+        {
+          location: location,
+          maxUnits: maxUnits,
+          cost: maxUnits*selectedProduct.price_per_unit + location.fee,
+          }
+      ]
+    )
+    setAvailableUnits(availableUnits - maxUnits)
+  }
+
   const removeLocation = (toRemoveItem) => {
     const newDistribution = distribution.filter((item) => {
       return item.location.id !== toRemoveItem.location.id
@@ -39,6 +55,7 @@ const Provider = ({ children }) => {
       setMaxUnits,
       availableUnits,
       setAvailableUnits,
+      addLocation,
       removeLocation,
     }}>
       {children}
