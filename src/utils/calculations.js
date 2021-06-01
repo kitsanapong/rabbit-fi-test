@@ -1,7 +1,9 @@
-function maxUnits(product, date, location) {
-  console.log(product)
-  console.log(date)
-  console.log(location)
+function maxUnits(availableUnits, location) {
+  if(availableUnits >= location.max_dist) {
+    return location.max_dist
+  } else {
+    return availableUnits
+  }
 }
 
 export default {

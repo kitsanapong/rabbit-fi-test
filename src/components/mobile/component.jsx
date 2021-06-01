@@ -114,8 +114,8 @@ const LocationList = ({
       <Grid container justify="center">
         <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
           {data.map((distItem) => {
-            const { location = {} } = distItem
-            return <LocationItem key={location.name} lable={location.name}/>
+            const { location = {}, maxUnits, cost } = distItem
+            return <LocationItem key={location.name} lable={location.name} units={maxUnits} cost={cost}/>
           })}
         </Paper>
       </Grid>
@@ -158,7 +158,7 @@ const Mobile = () => {
   const [showMap, setShowMap] = useState(false)
   const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
-  const [maxProduction, setMaxProduction] = useState(0)
+  const [availableUnits, setAvailableUnits] = useState(0)
   useEffect(() => {
     const [selectedProduct] = productState
     const [selectedDate] = dateState
@@ -169,7 +169,7 @@ const Mobile = () => {
       const dateNumber = Math.ceil(selectedDate.diff(new Date(), 'days', true))
       const maxDays = Object.keys(max_production).slice(-1)[0] + ''
       const maxProductionUnits = maxDays < dateNumber? max_production[maxDays] : max_production[dateNumber]
-      setMaxProduction(maxProductionUnits)
+      setAvailableUnits(maxProductionUnits)
     }
   }, [productState[0], dateState[0]])
   return (
@@ -195,17 +195,19 @@ const Mobile = () => {
         onClose={()=> { setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
         onSelect={(location) => {
-          // CalUtils.maxUnits(productState[0], dateState[0], location)
-          console.log('==========================')
+          const maxUnits = CalUtils.maxUnits(availableUnits, location)
+          const [selectedProduct] = productState
           setDistribution(
             [
               ...distribution,
               {
                 location: location,
-                maxUnits: 1000,
+                maxUnits: maxUnits,
+                cost: maxUnits*selectedProduct.price_per_unit + location.fee,
                }
             ]
           )
+          setAvailableUnits(availableUnits - maxUnits)
         }}
       />
     </div>
