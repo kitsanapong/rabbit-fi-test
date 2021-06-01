@@ -76,6 +76,7 @@ const LocationItem = ({
           variant="outlined"
           color="secondary"
           size="small"
+          onClick={() => { onRemoveClick() }}
         >
           Remove
         </Button>
