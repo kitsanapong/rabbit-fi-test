@@ -211,18 +211,9 @@ const Mobile = () => {
   const [maxUnits, setMaxUnits] = useState(0)
   const [availableUnits, setAvailableUnits] = useState(0)
   useEffect(() => {
-    const [selectedProduct] = productState
-    const [selectedDate] = dateState
-    if (selectedProduct && selectedDate) {
-      const {
-        max_production = [],
-      } = selectedProduct
-      const dateNumber = Math.ceil(selectedDate.diff(new Date(), 'days', true))
-      const maxDays = Object.keys(max_production).slice(-1)[0] + ''
-      const maxProductionUnits = maxDays < dateNumber? max_production[maxDays] : max_production[dateNumber]
-      setAvailableUnits(maxProductionUnits)
-      setMaxUnits(maxProductionUnits)
-    }
+    const maxProductionUnits = CalUtils.maxProductionUnits(productState[0], dateState[0])
+    setAvailableUnits(maxProductionUnits)
+    setMaxUnits(maxProductionUnits)
   }, [productState[0], dateState[0]])
   return (
     <div className="mobile">
