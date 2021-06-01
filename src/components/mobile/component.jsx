@@ -155,17 +155,6 @@ const LocationItem = ({
   )
 }
 
-function getValidLocations(allLocations = [], distribution = []) {
-  const selectedLocations = distribution.reduce((idSet, item) => {
-    const { location = {} } = item
-    idSet.add(location.id)
-    return idSet
-  }, new Set())
-  return allLocations.filter((location) => {
-    return !selectedLocations.has(location.id)
-  })
-}
-
 const UnitInfo = ({ maxUnits = 0, availableUnits }) => {
   return (
     <Grid container direction="row" justify="center">
@@ -215,7 +204,7 @@ const Mobile = () => {
         <Submmit payload={ProductDistribution.getPayload()}/>
       </Grid>
       <Map
-        data={getValidLocations(ProductDistribution.availableLocations, ProductDistribution.distribution)}
+        data={ProductDistribution.getValidLocations()}
         open={ProductDistribution.showMap}
         onClose={()=> { ProductDistribution.setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}

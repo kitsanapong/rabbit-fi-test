@@ -59,6 +59,17 @@ const Provider = ({ children }) => {
     }
   }
 
+  const getValidLocations = () => {
+    const selectedLocations = distribution.reduce((idSet, item) => {
+      const { location = {} } = item
+      idSet.add(location.id)
+      return idSet
+    }, new Set())
+    return availableLocations.filter((location) => {
+      return !selectedLocations.has(location.id)
+    })
+  }
+
   return (
     <Context.Provider value={{
       productState,
@@ -73,6 +84,7 @@ const Provider = ({ children }) => {
       addLocation,
       removeLocation,
       getPayload,
+      getValidLocations,
     }}>
       {children}
     </Context.Provider>
