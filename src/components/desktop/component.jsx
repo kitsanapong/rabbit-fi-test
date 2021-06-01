@@ -10,6 +10,7 @@ import {
 } from '@material-ui/pickers'
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 import './desktop.scss'
 
@@ -156,6 +157,11 @@ const Desktop = () => {
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
+        <Grid container>
+          <Paper className="toolbar" elevation={4}>
+            <Typography variant="button">RABBIT PRODUCT DISTRIBUTION</Typography>
+          </Paper>
+        </Grid>
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
         <LocationList/>

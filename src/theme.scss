@@ -1,0 +1,6 @@
+$primary-color: #ff9000;
+$secondary-color: #0066cc;
+
+@function spacing($number) {
+  @return $number*8
+}

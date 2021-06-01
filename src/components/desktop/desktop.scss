@@ -1,3 +1,18 @@
-.desktop {
+@import '../../theme.scss';
 
+.desktop {
+  .toolbar {
+    min-height: 64px;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: $primary-color;
+    width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    margin-bottom: spacing(4) * 1px;
+  }
 }
