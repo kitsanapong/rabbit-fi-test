@@ -71,11 +71,11 @@ const Provider = ({ children }) => {
   }
 
   const shouldEnableAddLocation = () => {
-    return productState[0] != -1
+    return productState[0] != -1 && availableUnits > 0
   }
 
   const shouldEnableSubmit = () => {
-    return shouldEnableAddLocation() && distribution.length > 0
+    return productState[0] != -1 && distribution.length > 0
   }
 
   return (
