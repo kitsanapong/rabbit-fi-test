@@ -75,7 +75,7 @@ const LocationList = () => {
         </Grid>
         <Grid item xs={2}>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             startIcon={<Icon>add_location</Icon>}
             size="small"
@@ -139,6 +139,17 @@ const Summary = () => {
   )
 }
 
+const Submmit = () => {
+  return (
+    <Grid container direction="row" justify="center">
+      <Button
+        variant="contained"
+        color="primary"
+      >Submit</Button>
+    </Grid>
+  )
+}
+
 const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
@@ -149,6 +160,7 @@ const Desktop = () => {
         <SelectDate state={dateState}/>
         <LocationList/>
         <Summary/>
+        <Submmit/>
       </Grid>
     </div>
   )
