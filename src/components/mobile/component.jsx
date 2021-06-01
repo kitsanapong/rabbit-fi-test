@@ -10,21 +10,23 @@ import {
 } from '@material-ui/pickers'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import Map from '../Map/Map';
 
 import './mobile.scss'
 import useProducts from '../../hooks/useProducts';
-import LocationList from '../LocationList/index';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
   const products = useProducts()
   return (
-    <Grid className="mb-2" container direction="row" alignItems="center">
-      <Grid item xs={3}>
+    <Grid className="mb-2" container direction="column" alignItems="center">
+      <Grid item xs={12}>
         <Typography align="center" variant="button" display="block" gutterBottom>Product</Typography>
       </Grid>
-      <Grid item xc={9}>
+      <Grid item xc={12}>
         <FormControl variant="outlined" size="small">
           <Select
             id="select-product"
@@ -45,7 +47,7 @@ const SelectProduct = ({ state = [] }) => {
 const SelectDate = ({ state = [] }) => {
   const [date, setDate] = state
   return (
-    <Grid className="mb-2" container direction="row" alignItems="center">
+    <Grid className="mb-2" container direction="column" alignItems="center">
       <Grid item xs={3} direction="row">
         <Typography align="center" variant="button" display="block" gutterBottom>Date</Typography>
       </Grid>
@@ -64,7 +66,7 @@ const SelectDate = ({ state = [] }) => {
 const Summary = () => {
   return (
     <Grid className="mb-4" container direction="column">
-      <Grid container direction="row">
+      <Grid container direction="column">
         <Grid item xs={3}>
           <Typography align="center" variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
         </Grid>
@@ -92,6 +94,40 @@ const Submmit = () => {
   )
 }
 
+const LocationList = () => {
+  return (
+    <Grid className="mb-2" container direction="column" alignItems="center">
+      <Grid item xs={12}>
+        <Typography align="center" variant="button" display="block" gutterBottom>Locations</Typography>
+      </Grid>
+      <Grid container justify="center">
+      <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
+        <LocationItem/>
+        <LocationItem/>
+        <LocationItem/>
+        <LocationItem/>
+        <LocationItem/>
+      </Paper>
+      </Grid>
+    </Grid>
+  )
+}
+
+const LocationItem = () => {
+  return (
+      <Grid container direction="row" alignItems="center" className="p-1">
+        <Grid item xs={4}><Typography variant="subtitle2">ASOK</Typography></Grid> 
+        <Grid item xs={3}><Typography variant="caption">2,000 Units</Typography></Grid> 
+        <Grid item xs={4}><Typography variant="caption">500,000.0 Cost</Typography></Grid> 
+        <Grid item xs={1} >
+          <IconButton aria-label="delete" size="small">
+            <DeleteIcon fontSize="inherit" />
+          </IconButton>
+        </Grid>
+      </Grid>
+  )
+}
+
 const Mobile = () => {
   const productState = useState(-1)
   const dateState = useState()
@@ -110,7 +146,7 @@ const Mobile = () => {
         <LocationList
           openMap={() => { setShowMap(true) }}
         />
-        <Summary/>
+        {/* <Summary/> */}
         <Submmit/>
       </Grid>
       <Map

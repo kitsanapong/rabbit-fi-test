@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import './desktop.scss'
 import useProducts from '../../hooks/useProducts';
 import Map from '../Map/Map';
-import LocationList from '../LocationList'
+import LocationList from './LocationList'
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
