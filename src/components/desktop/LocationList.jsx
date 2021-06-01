@@ -10,6 +10,7 @@ const LocationList = ({
   openMap = () => {},
   data = [],
   remove = () => {},
+  isEnable = false,
 }) => {
   return (
     <Grid className="mb-2" container direction="column">
@@ -35,6 +36,7 @@ const LocationList = ({
             onClick={() => {
               openMap()
             }}
+            disabled={!isEnable}
           >
             Add
           </Button>

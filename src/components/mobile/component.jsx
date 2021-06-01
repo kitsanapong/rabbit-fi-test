@@ -113,6 +113,7 @@ const LocationList = ({
   openMap = () => {},
   data = [],
   remove = () => {},
+  isEnable = false,
 }) => {
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
@@ -128,7 +129,12 @@ const LocationList = ({
         </Paper>
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center" className="p-1">
-        <Button variant="contained" color="primary" size="small" onClick={() => { openMap() }}>Add Location</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          disabled={!isEnable}
+          onClick={() => { openMap() }}>Add Location</Button>
       </Grid>
     </Grid>
   )
@@ -195,6 +201,7 @@ const Mobile = () => {
         <SelectDate state={ProductDistribution.dateState}/>
         <UnitInfo maxUnits={ProductDistribution.maxUnits} availableUnits={ProductDistribution.availableUnits}/>
         <LocationList
+          isEnable={ProductDistribution.shouldEnableAddLocation()}
           data={ProductDistribution.distribution}
           openMap={() => { ProductDistribution.setShowMap(true) }}
           remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}

@@ -125,7 +125,6 @@ const UnitInfo = ({ maxUnits = 0, availableUnits = 0 }) => {
 
 const Desktop = () => {
   const ProductDistribution = useContext(productDistributionProvider.Context)
-  console.log(ProductDistribution)
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -138,6 +137,7 @@ const Desktop = () => {
         <SelectDate state={ProductDistribution.dateState}/>
         <UnitInfo maxUnits={ProductDistribution.maxUnits} availableUnits={ProductDistribution.availableUnits}/>
         <LocationList
+          isEnable={ProductDistribution.shouldEnableAddLocation()}
           data={ProductDistribution.distribution}
           openMap={() => { ProductDistribution.setShowMap(true) }}
           remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
