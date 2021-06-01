@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 
 import './mobile.scss'
 import useProducts from '../../hooks/useProducts';
+import useLocations from '../../hooks/useLocations';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -61,6 +62,7 @@ const SelectDate = ({ state = [] }) => {
 }
 
 const LocationList = () => {
+  const locations = useLocations()
   return (
     <Grid className="mb-2" container direction="column">
       <Grid container direction="row">
