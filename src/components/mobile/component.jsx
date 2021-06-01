@@ -95,17 +95,7 @@ const SummaryItem = ({ lable = '', value = '' }) => {
   )
 }
 
-const Submmit = ({ product = {}, date = {}, distribution = [] }) => {
-  const payload = {
-    date: date.format('YYYY-MM-DD'),
-    product: product.id,
-    locations: distribution.map((item) => {
-      return {
-        id: item.location.id,
-        quantity: item.maxUnits,
-      }
-    })
-  }
+const Submmit = ({ payload = {} }) => {
   return (
     <Grid container direction="row" justify="center">
       <Button
@@ -222,7 +212,7 @@ const Mobile = () => {
           remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
         />
         <Summary data={ProductDistribution.distribution}/>
-        <Submmit product={ProductDistribution.productState[0]} date={ProductDistribution.dateState[0]} distribution={ProductDistribution.distribution}/>
+        <Submmit payload={ProductDistribution.getPayload()}/>
       </Grid>
       <Map
         data={getValidLocations(ProductDistribution.availableLocations, ProductDistribution.distribution)}

@@ -44,6 +44,21 @@ const Provider = ({ children }) => {
     setAvailableUnits(availableUnits + toRemoveItem.maxUnits)
   }
 
+  const getPayload = () => {
+    const [product] = productState
+    const [date] = dateState
+    return {
+      date: date.format('YYYY-MM-DD'),
+      product: product.id,
+      locations: distribution.map((item) => {
+        return {
+          id: item.location.id,
+          quantity: item.maxUnits,
+        }
+      })
+    }
+  }
+
   return (
     <Context.Provider value={{
       productState,
@@ -57,6 +72,7 @@ const Provider = ({ children }) => {
       setAvailableUnits,
       addLocation,
       removeLocation,
+      getPayload,
     }}>
       {children}
     </Context.Provider>
