@@ -18,6 +18,7 @@ import Map from '../Map/Map';
 import './mobile.scss'
 import useProducts from '../../hooks/useProducts';
 import useLocations from '../../hooks/useLocations';
+import CalUtils from '../../utils/calculations'
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -105,7 +106,6 @@ const LocationList = ({
   openMap = () => {},
   data = [],
 }) => {
-  console.log(data)
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
       <Grid item xs={12}>
@@ -158,8 +158,20 @@ const Mobile = () => {
   const [showMap, setShowMap] = useState(false)
   const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
-  // console.log(distribution)
-  // console.log('===================')
+  const [maxProduction, setMaxProduction] = useState(0)
+  useEffect(() => {
+    const [selectedProduct] = productState
+    const [selectedDate] = dateState
+    if (selectedProduct && selectedDate) {
+      const {
+        max_production = [],
+      } = selectedProduct
+      const dateNumber = Math.ceil(selectedDate.diff(new Date(), 'days', true))
+      const maxDays = Object.keys(max_production).slice(-1)[0] + ''
+      const maxProductionUnits = maxDays < dateNumber? max_production[maxDays] : max_production[dateNumber]
+      setMaxProduction(maxProductionUnits)
+    }
+  }, [productState[0], dateState[0]])
   return (
     <div className="mobile">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -183,16 +195,14 @@ const Mobile = () => {
         onClose={()=> { setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
         onSelect={(location) => {
-          // console.log(productState[0])
-          // console.log(dateState[0])
-          // console.log(location)
+          // CalUtils.maxUnits(productState[0], dateState[0], location)
+          console.log('==========================')
           setDistribution(
             [
               ...distribution,
               {
                 location: location,
                 maxUnits: 1000,
-                cost: 1000,
                }
             ]
           )
