@@ -63,7 +63,9 @@ const SelectDate = ({ state = [] }) => {
   )
 }
 
-const Summary = () => {
+const Summary = ({ data = [] }) => {
+  const totalUnits = data.reduce((sum, item) => { return sum + item.maxUnits }, 0)
+  const totalCost = data.reduce((sum, item) => { return sum + item.cost }, 0)
   return (
     <Grid className="mb-4" container direction="column">
       <Grid container direction="row">
@@ -72,10 +74,10 @@ const Summary = () => {
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>
-          <Typography variant="subtitle1" display="block" gutterBottom>45,000</Typography>
+          <Typography variant="subtitle1" display="block" gutterBottom>{totalUnits}</Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography variant="subtitle1" display="block" gutterBottom>650,000.0</Typography>
+          <Typography variant="subtitle1" display="block" gutterBottom>{totalCost}</Typography>
         </Grid>
       </Grid>
     </Grid>
@@ -135,8 +137,8 @@ const Desktop = () => {
           openMap={() => { ProductDistribution.setShowMap(true) }}
           remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
         />
-        {/* <Summary/> */}
-        {/* <Submmit/> */}
+        <Summary data={ProductDistribution.distribution}/>
+        <Submmit payload={ProductDistribution.getPayload()}/>
       </Grid>
       <Map
         data={ProductDistribution.getValidLocations()}
