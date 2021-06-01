@@ -6,6 +6,7 @@ node v14
 
 ## Start project
 ```script
+yarn install
 yarn start
 ```
 
