@@ -9,6 +9,11 @@ node v14
 yarn start
 ```
 
+## Unit test
+```script
+yarn test
+```
+
 ## Screen Shot
 ![Screen Shot 2564-06-02 at 02 57 48](https://user-images.githubusercontent.com/6568708/120384000-cd5a1e00-c34f-11eb-8b7b-7be49b7fd583.png)
 ![Screen Shot 2564-06-02 at 02 57 54](https://user-images.githubusercontent.com/6568708/120384006-cfbc7800-c34f-11eb-911e-b36552c73c4a.png)
