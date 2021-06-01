@@ -107,6 +107,7 @@ const Submmit = () => {
 const LocationList = ({
   openMap = () => {},
   data = [],
+  remove = () => {},
 }) => {
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
@@ -117,7 +118,7 @@ const LocationList = ({
         <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
           {data.map((distItem) => {
             const { location = {}, maxUnits, cost } = distItem
-            return <LocationItem key={location.name} lable={location.name} units={maxUnits} cost={cost}/>
+            return <LocationItem key={location.name} lable={location.name} units={maxUnits} cost={cost} onRemoveClick={() => { remove(distItem) }}/>
           })}
         </Paper>
       </Grid>
@@ -128,14 +129,19 @@ const LocationList = ({
   )
 }
 
-const LocationItem = ({ lable = 'Location' , units = '99999', cost = '99999'}) => {
+const LocationItem = ({
+  lable = 'Location',
+  units = '99999',
+  cost = '99999',
+  onRemoveClick = () => {},
+}) => {
   return (
     <Grid container direction="row" alignItems="center" className="p-1">
       <Grid item xs={4}><Typography variant="subtitle2">{lable}</Typography></Grid> 
       <Grid item xs={3}><Typography variant="caption">{units} Units</Typography></Grid> 
       <Grid item xs={4}><Typography variant="caption">Cost {cost}</Typography></Grid> 
       <Grid item xs={1} >
-        <IconButton aria-label="delete" size="small">
+        <IconButton aria-label="delete" size="small" onClick={() => { onRemoveClick() }}>
           <DeleteIcon fontSize="inherit" />
         </IconButton>
       </Grid>
@@ -187,6 +193,13 @@ const Mobile = () => {
         <LocationList
           data={distribution}
           openMap={() => { setShowMap(true) }}
+          remove={(toRemoveItem) => {
+            const newDistribution = distribution.filter((item) => {
+              return item.location.id !== toRemoveItem.location.id
+            })
+            setDistribution(newDistribution)
+            setAvailableUnits(availableUnits + toRemoveItem.maxUnits)
+          }}
         />
         <Summary data={distribution}/>
         <Submmit/>
