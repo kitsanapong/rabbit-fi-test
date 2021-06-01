@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment'
 
 import Map from '../Map/Map';
 
@@ -93,7 +94,17 @@ const SummaryItem = ({ lable = '', value = '' }) => {
   )
 }
 
-const Submmit = () => {
+const Submmit = ({ product = {}, date = {}, distribution = [] }) => {
+  const payload = {
+    date: date.format('YYYY-MM-DD'),
+    product: product.id,
+    locations: distribution.map((item) => {
+      return {
+        id: item.location.id,
+        quantity: item.maxUnits,
+      }
+    })
+  }
   return (
     <Grid container direction="row" justify="center">
       <Button
@@ -101,7 +112,7 @@ const Submmit = () => {
         variant="contained"
         color="primary"
         onClick={() => {
-          APIs.summitCart()
+          APIs.summitCart(payload)
         }}
       >Submit</Button>
     </Grid>
@@ -193,7 +204,7 @@ const UnitInfo = ({ maxUnits = 0, availableUnits }) => {
 
 const Mobile = () => {
   const productState = useState(-1)
-  const dateState = useState()
+  const dateState = useState(moment())
   const [showMap, setShowMap] = useState(false)
   const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
@@ -236,7 +247,7 @@ const Mobile = () => {
           }}
         />
         <Summary data={distribution}/>
-        <Submmit/>
+        <Submmit product={productState[0]} date={dateState[0]} distribution={distribution}/>
       </Grid>
       <Map
         data={getValidLocations(availableLocations, distribution)}
