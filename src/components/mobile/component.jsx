@@ -160,12 +160,40 @@ function getValidLocations(allLocations = [], distribution = []) {
   })
 }
 
+const UnitInfo = ({ maxUnits = 0, availableUnits }) => {
+  return (
+    <Grid container direction="row" justify="center">
+      <Grid item xs={4}>
+        <Grid className="mb-2" container direction="column" alignItems="center">
+          <Grid item xs={12}>
+            <Typography align="center" variant="button" display="block" gutterBottom>Max Units</Typography>
+          </Grid>
+          <Grid item xc={12}>
+          <Typography align="center" variant="caption" display="block" gutterBottom>{maxUnits}</Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={4}>
+        <Grid className="mb-2" container direction="column" alignItems="center">
+          <Grid item xs={12}>
+            <Typography align="center" variant="button" display="block" gutterBottom>Available Units</Typography>
+          </Grid>
+          <Grid item xc={12}>
+            <Typography align="center" variant="caption" display="block" gutterBottom>{availableUnits}</Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
 const Mobile = () => {
   const productState = useState(-1)
   const dateState = useState()
   const [showMap, setShowMap] = useState(false)
   const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
+  const [maxUnits, setMaxUnits] = useState(0)
   const [availableUnits, setAvailableUnits] = useState(0)
   useEffect(() => {
     const [selectedProduct] = productState
@@ -178,6 +206,7 @@ const Mobile = () => {
       const maxDays = Object.keys(max_production).slice(-1)[0] + ''
       const maxProductionUnits = maxDays < dateNumber? max_production[maxDays] : max_production[dateNumber]
       setAvailableUnits(maxProductionUnits)
+      setMaxUnits(maxProductionUnits)
     }
   }, [productState[0], dateState[0]])
   return (
@@ -190,6 +219,7 @@ const Mobile = () => {
         </Grid>
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
+        <UnitInfo maxUnits={maxUnits} availableUnits={availableUnits}/>
         <LocationList
           data={distribution}
           openMap={() => { setShowMap(true) }}
