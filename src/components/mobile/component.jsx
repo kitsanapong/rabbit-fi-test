@@ -65,19 +65,25 @@ const SelectDate = ({ state = [] }) => {
 
 const Summary = () => {
   return (
-    <Grid className="mb-4" container direction="column">
-      <Grid container direction="column">
-        <Grid item xs={3}>
-          <Typography align="center" variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
-        </Grid>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={2}>
-          <Typography variant="subtitle1" display="block" gutterBottom>45,000</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="subtitle1" display="block" gutterBottom>650,000.0</Typography>
-        </Grid>
+    <Grid className="mb-2" container direction="column" alignItems="center">
+      <Grid item xs={12}>
+        <Typography align="center" variant="button" display="block" gutterBottom>Summary</Typography>
       </Grid>
+      <Grid container justify="center">
+      <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
+        <SummaryItem lable="Total Units" value="20,000 units"/>
+        <SummaryItem lable="Tortal Cost" value="5,000,000.0"/>
+      </Paper>
+      </Grid>
+    </Grid>
+  )
+}
+
+const SummaryItem = ({ lable = '', value = '' }) => {
+  return (
+    <Grid container direction="row" alignItems="center" className="p-1">
+      <Grid item xs={4}><Typography variant="subtitle2">{lable}</Typography></Grid> 
+      <Grid item xs={3}><Typography variant="caption">{value}</Typography></Grid> 
     </Grid>
   )
 }
@@ -115,16 +121,16 @@ const LocationList = () => {
 
 const LocationItem = () => {
   return (
-      <Grid container direction="row" alignItems="center" className="p-1">
-        <Grid item xs={4}><Typography variant="subtitle2">ASOK</Typography></Grid> 
-        <Grid item xs={3}><Typography variant="caption">2,000 Units</Typography></Grid> 
-        <Grid item xs={4}><Typography variant="caption">500,000.0 Cost</Typography></Grid> 
-        <Grid item xs={1} >
-          <IconButton aria-label="delete" size="small">
-            <DeleteIcon fontSize="inherit" />
-          </IconButton>
-        </Grid>
+    <Grid container direction="row" alignItems="center" className="p-1">
+      <Grid item xs={4}><Typography variant="subtitle2">ASOK</Typography></Grid> 
+      <Grid item xs={3}><Typography variant="caption">2,000 Units</Typography></Grid> 
+      <Grid item xs={4}><Typography variant="caption">500,000.0 Cost</Typography></Grid> 
+      <Grid item xs={1} >
+        <IconButton aria-label="delete" size="small">
+          <DeleteIcon fontSize="inherit" />
+        </IconButton>
       </Grid>
+    </Grid>
   )
 }
 
@@ -146,7 +152,7 @@ const Mobile = () => {
         <LocationList
           openMap={() => { setShowMap(true) }}
         />
-        {/* <Summary/> */}
+        <Summary/>
         <Submmit/>
       </Grid>
       <Map
