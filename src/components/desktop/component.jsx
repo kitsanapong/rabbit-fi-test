@@ -15,6 +15,7 @@ import './desktop.scss'
 import useProducts from '../../hooks/useProducts';
 import Map from '../Map/Map';
 import LocationList from './LocationList'
+import useLocations from '../../hooks/useLocations';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -95,6 +96,7 @@ const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
   const [showMap, setShowMap] = useState(false)
+  const availableLocations = useLocations()
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -110,6 +112,7 @@ const Desktop = () => {
         <Submmit/>
       </Grid>
       <Map
+        data={availableLocations}
         open={showMap}
         onClose={()=> { setShowMap(false) }}
         style={{ height: '60vh', width: '80vw', margin: 'auto', marginTop: 64 }}
