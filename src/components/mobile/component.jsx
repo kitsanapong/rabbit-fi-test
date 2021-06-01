@@ -17,6 +17,7 @@ import Map from '../Map/Map';
 
 import './mobile.scss'
 import useProducts from '../../hooks/useProducts';
+import useLocations from '../../hooks/useLocations';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -100,7 +101,9 @@ const Submmit = () => {
   )
 }
 
-const LocationList = () => {
+const LocationList = ({
+  openMap = () => {},
+}) => {
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
       <Grid item xs={12}>
@@ -116,8 +119,8 @@ const LocationList = () => {
         </Paper>
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center" className="p-1">
-          <Button variant="contained" color="primary" size="small">Add Location</Button>
-        </Grid>
+        <Button variant="contained" color="primary" size="small" onClick={() => { openMap() }}>Add Location</Button>
+      </Grid>
     </Grid>
   )
 }
@@ -142,6 +145,7 @@ const Mobile = () => {
   const dateState = useState()
   const [showMap, setShowMap] = useState(false)
   const [locations, setLocations] = useState([])
+  const availableLocations = useLocations()
   return (
     <div className="mobile">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -159,6 +163,7 @@ const Mobile = () => {
         <Submmit/>
       </Grid>
       <Map
+        data={availableLocations}
         open={showMap}
         onClose={()=> { setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
