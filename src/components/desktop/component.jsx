@@ -35,7 +35,7 @@ const SelectProduct = ({ state = [] }) => {
           >
             <MenuItem value={-1}>Select product</MenuItem>
             {products.map((item) => {
-              return <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+              return <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
             })}
           </Select>
         </FormControl>
@@ -93,8 +93,32 @@ const Submmit = () => {
   )
 }
 
+const UnitInfo = ({ maxUnits = 0, availableUnits = 0 }) => {
+  return (
+    <>
+      <Grid className="mb-1" container direction="row" alignItems="center">
+        <Grid item xs={3}>
+          <Typography align="center" variant="button" display="block" gutterBottom>MAXIMUM UNITS</Typography>
+        </Grid>
+        <Grid item xc={9}>
+        <Typography align="center" variant="caption" display="block" gutterBottom>{maxUnits}</Typography>
+        </Grid>
+      </Grid>
+      <Grid className="mb-2" container direction="row" alignItems="center">
+      <Grid item xs={3}>
+        <Typography align="center" variant="button" display="block" gutterBottom>AVAILABLE UNITS</Typography>
+      </Grid>
+      <Grid item xc={9}>
+      <Typography align="center" variant="caption" display="block" gutterBottom>{availableUnits}</Typography>
+      </Grid>
+    </Grid>
+  </>
+  )
+}
+
 const Desktop = () => {
   const ProductDistribution = useContext(productDistributionProvider.Context)
+  console.log(ProductDistribution)
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -105,6 +129,7 @@ const Desktop = () => {
         </Grid>
         <SelectProduct state={ProductDistribution.productState}/>
         <SelectDate state={ProductDistribution.dateState}/>
+        <UnitInfo maxUnits={ProductDistribution.maxUnits} availableUnits={ProductDistribution.availableUnits}/>
         {/* <LocationList openMap={() => { setShowMap(true) }}/> */}
         {/* <Summary/> */}
         {/* <Submmit/> */}
