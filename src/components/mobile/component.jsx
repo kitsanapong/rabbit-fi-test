@@ -19,6 +19,7 @@ import './mobile.scss'
 import useProducts from '../../hooks/useProducts';
 import useLocations from '../../hooks/useLocations';
 import CalUtils from '../../utils/calculations'
+import APIs from '../../apis'
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -99,6 +100,9 @@ const Submmit = () => {
         className="submit-button"
         variant="contained"
         color="primary"
+        onClick={() => {
+          APIs.summitCart()
+        }}
       >Submit</Button>
     </Grid>
   )
