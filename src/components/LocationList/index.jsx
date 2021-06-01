@@ -8,8 +8,9 @@ import useLocations from '../../hooks/useLocations';
 
 const LocationList = ({
   openMap = () => {},
+  selectedLocation = [],
 }) => {
-  const locations = useLocations()
+  const availableLocations = useLocations()
   return (
     <Grid className="mb-2" container direction="column">
       <Grid container direction="row">
@@ -37,12 +38,20 @@ const LocationList = ({
           </Button>
         </Grid>
       </Grid>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
+      {selectedLocation.length === 0? (
+        <Grid className="mb-1" container direction="row" justify="center">
+            <Typography variant="overline">No Location selected</Typography>
+        </Grid>
+      ) : (
+        <>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+        </>
+      )}
     </Grid>
   )
 }

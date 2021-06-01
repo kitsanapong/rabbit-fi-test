@@ -96,6 +96,7 @@ const Mobile = () => {
   const productState = useState(-1)
   const dateState = useState()
   const [showMap, setShowMap] = useState(false)
+  const [locations, setLocations] = useState([])
   return (
     <div className="mobile">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -106,7 +107,9 @@ const Mobile = () => {
         </Grid>
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
-        <LocationList openMap={() => { setShowMap(true) }}/>
+        <LocationList
+          openMap={() => { setShowMap(true) }}
+        />
         <Summary/>
         <Submmit/>
       </Grid>
