@@ -15,6 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import './desktop.scss'
 import useProducts from '../../hooks/useProducts';
 import useLocations from '../../hooks/useLocations';
+import Map from '../Map/Map';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -172,6 +173,7 @@ const Desktop = () => {
         <Summary/>
         <Submmit/>
       </Grid>
+      <Map/>
     </div>
   )
 }
