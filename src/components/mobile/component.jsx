@@ -107,17 +107,17 @@ const LocationList = () => {
         <Typography align="center" variant="button" display="block" gutterBottom>Locations</Typography>
       </Grid>
       <Grid container justify="center">
-      <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
-        <LocationItem/>
-        <LocationItem/>
-        <LocationItem/>
-        <LocationItem/>
-        <LocationItem/>
-        <Grid container direction="row" justify="center" alignItems="center" className="p-1">
+        <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+          <LocationItem/>
+        </Paper>
+      </Grid>
+      <Grid container direction="row" justify="center" alignItems="center" className="p-1">
           <Button variant="contained" color="primary" size="small">Add Location</Button>
         </Grid>
-      </Paper>
-      </Grid>
     </Grid>
   )
 }
