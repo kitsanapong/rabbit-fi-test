@@ -113,6 +113,9 @@ const LocationList = () => {
         <LocationItem/>
         <LocationItem/>
         <LocationItem/>
+        <Grid container direction="row" justify="center" alignItems="center" className="p-1">
+          <Button variant="contained" color="primary" size="small">Add Location</Button>
+        </Grid>
       </Paper>
       </Grid>
     </Grid>
