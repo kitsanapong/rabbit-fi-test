@@ -8,21 +8,20 @@ import Select from '@material-ui/core/Select';
 import {
   KeyboardDatePicker,
 } from '@material-ui/pickers'
-import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
 import './desktop.scss'
 import useProducts from '../../hooks/useProducts';
-import useLocations from '../../hooks/useLocations';
 import Map from '../Map/Map';
+import LocationList from '../LocationList'
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
   const products = useProducts()
   return (
     <Grid className="mb-2" container direction="row" alignItems="center">
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <Typography align="center" variant="button" display="block" gutterBottom>Product</Typography>
       </Grid>
       <Grid item xc={9}>
@@ -47,7 +46,7 @@ const SelectDate = ({ state = [] }) => {
   const [date, setDate] = state
   return (
     <Grid className="mb-2" container direction="row" alignItems="center">
-      <Grid item xs={2} direction="row">
+      <Grid item xs={3} direction="row">
         <Typography align="center" variant="button" display="block" gutterBottom>Date</Typography>
       </Grid>
       <Grid item xc={9}>
@@ -62,78 +61,11 @@ const SelectDate = ({ state = [] }) => {
   )
 }
 
-const LocationList = ({
-  openMap = () => {},
-}) => {
-  const locations = useLocations()
-  return (
-    <Grid className="mb-2" container direction="column">
-      <Grid container direction="row">
-        <Grid item xs={2}>
-          <Typography align="center" variant="button" display="block" gutterBottom>Locations</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="overline" display="block" gutterBottom>Place</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="overline" display="block" gutterBottom>Unit</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="overline" display="block" gutterBottom>Cost</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<Icon>add_location</Icon>}
-            size="small"
-            onClick={() => { openMap() }}
-          >
-            Add
-          </Button>
-        </Grid>
-      </Grid>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-      <LocationItem/>
-    </Grid>
-  )
-}
-
-const LocationItem = () => {
-  return (
-    <Grid className="mb-1" container direction="row">
-      <Grid item xs={2}></Grid>
-      <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>Asoke</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>2,000</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>5000.0</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="small"
-        >
-          Remove
-        </Button>
-      </Grid>
-    </Grid>
-  )
-}
-
 const Summary = () => {
   return (
     <Grid className="mb-4" container direction="column">
       <Grid container direction="row">
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Typography align="center" variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
         </Grid>
         <Grid item xs={2}></Grid>
@@ -162,7 +94,7 @@ const Submmit = () => {
 const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
-  const [showMap, setShowMap] = useState(true)
+  const [showMap, setShowMap] = useState(false)
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
