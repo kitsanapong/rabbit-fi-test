@@ -18,6 +18,7 @@ const Provider = ({ children }) => {
     const maxProductionUnits = CalUtils.maxProductionUnits(productState[0], dateState[0])
     setAvailableUnits(maxProductionUnits)
     setMaxUnits(maxProductionUnits)
+    setDistribution([])
   }, [productState[0], dateState[0]])
   
   const addLocation = (location) => {
