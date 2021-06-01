@@ -13,9 +13,11 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
 import './mobile.scss'
+import useProducts from '../../hooks/useProducts';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
+  const products = useProducts()
   return (
     <Grid className="mb-2" container direction="row" alignItems="center">
       <Grid item xs={3}>
@@ -29,9 +31,9 @@ const SelectProduct = ({ state = [] }) => {
             onChange={(e) => { setProduct(e.target.value) }}
           >
             <MenuItem value={-1}>Select product</MenuItem>
-            <MenuItem value={10}>Flyer - One Sided</MenuItem>
-            <MenuItem value={20}>Flyer - Two Sided</MenuItem>
-            <MenuItem value={30}>Brochure - 4 Page</MenuItem>
+            {products.map((item) => {
+              return <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+            })}
           </Select>
         </FormControl>
       </Grid>
