@@ -17,9 +17,9 @@ import './desktop.scss'
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
   return (
-    <Grid container direction="row" alignItems="center">
-      <Grid item xs={3}>
-        <Typography variant="button" display="block" gutterBottom>Product</Typography>
+    <Grid className="mb-2" container direction="row" alignItems="center">
+      <Grid item xs={2}>
+        <Typography align="center" variant="button" display="block" gutterBottom>Product</Typography>
       </Grid>
       <Grid item xc={9}>
         <FormControl variant="outlined" size="small">
@@ -42,9 +42,9 @@ const SelectProduct = ({ state = [] }) => {
 const SelectDate = ({ state = [] }) => {
   const [date, setDate] = state
   return (
-    <Grid container direction="row" alignItems="center">
-      <Grid item xs={3} direction="row">
-        <Typography variant="button" display="block" gutterBottom>Date</Typography>
+    <Grid className="mb-2" container direction="row" alignItems="center">
+      <Grid item xs={2} direction="row">
+        <Typography align="center" variant="button" display="block" gutterBottom>Date</Typography>
       </Grid>
       <Grid item xc={9}>
         <KeyboardDatePicker
@@ -60,10 +60,10 @@ const SelectDate = ({ state = [] }) => {
 
 const LocationList = () => {
   return (
-    <Grid container direction="column">
+    <Grid className="mb-2" container direction="column">
       <Grid container direction="row">
-        <Grid item xs={3}>
-          <Typography variant="button" display="block" gutterBottom>Locations</Typography>
+        <Grid item xs={2}>
+          <Typography align="center" variant="button" display="block" gutterBottom>Locations</Typography>
         </Grid>
         <Grid item xs={2}>
           <Typography variant="overline" display="block" gutterBottom>Place</Typography>
@@ -97,8 +97,8 @@ const LocationList = () => {
 
 const LocationItem = () => {
   return (
-    <Grid container direction="row">
-      <Grid item xs={3}></Grid>
+    <Grid className="mb-1" container direction="row">
+      <Grid item xs={2}></Grid>
       <Grid item xs={2}>
         <Typography variant="body2" display="block" gutterBottom>Asoke</Typography>
       </Grid>
@@ -123,10 +123,10 @@ const LocationItem = () => {
 
 const Summary = () => {
   return (
-    <Grid container direction="column">
+    <Grid className="mb-4" container direction="column">
       <Grid container direction="row">
-        <Grid item xs={3}>
-          <Typography variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
+        <Grid item xs={2}>
+          <Typography align="center" variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>
