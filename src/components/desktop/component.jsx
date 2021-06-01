@@ -62,7 +62,9 @@ const SelectDate = ({ state = [] }) => {
   )
 }
 
-const LocationList = () => {
+const LocationList = ({
+  openMap = () => {},
+}) => {
   const locations = useLocations()
   return (
     <Grid className="mb-2" container direction="column">
@@ -85,6 +87,7 @@ const LocationList = () => {
             color="primary"
             startIcon={<Icon>add_location</Icon>}
             size="small"
+            onClick={() => { openMap() }}
           >
             Add
           </Button>
@@ -159,6 +162,7 @@ const Submmit = () => {
 const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
+  const [showMap, setShowMap] = useState(true)
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -169,11 +173,11 @@ const Desktop = () => {
         </Grid>
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
-        <LocationList/>
+        <LocationList openMap={() => { setShowMap(true) }}/>
         <Summary/>
         <Submmit/>
       </Grid>
-      <Map/>
+      <Map open={showMap} onClose={()=> { setShowMap(false) }}/>
     </div>
   )
 }
