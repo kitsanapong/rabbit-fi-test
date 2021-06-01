@@ -99,13 +99,13 @@ const LocationItem = () => {
     <Grid container direction="row">
       <Grid item xs={3}></Grid>
       <Grid item xs={2}>
-        <Typography variant="body1" display="block" gutterBottom>Asoke</Typography>
+        <Typography variant="body2" display="block" gutterBottom>Asoke</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography variant="body1" display="block" gutterBottom>2000</Typography>
+        <Typography variant="body2" display="block" gutterBottom>2,000</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography variant="body1" display="block" gutterBottom>5000.0</Typography>
+        <Typography variant="body2" display="block" gutterBottom>5000.0</Typography>
       </Grid>
       <Grid item xs={2}>
         <Button
@@ -120,6 +120,25 @@ const LocationItem = () => {
   )
 }
 
+const Summary = () => {
+  return (
+    <Grid container direction="column">
+      <Grid container direction="row">
+        <Grid item xs={3}>
+          <Typography variant="subtitle1" display="block" gutterBottom>TOTAL</Typography>
+        </Grid>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={2}>
+          <Typography variant="subtitle1" display="block" gutterBottom>45,000</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="subtitle1" display="block" gutterBottom>650,000.0</Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
 const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
@@ -129,6 +148,7 @@ const Desktop = () => {
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
         <LocationList/>
+        <Summary/>
       </Grid>
     </div>
   )
