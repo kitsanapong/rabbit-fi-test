@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+import React from 'react'
+import { useMediaQuery } from 'react-responsive'
+
+import Desktop from './components/desktop/component'
+import Mobile from './components/mobile/component'
+
 import './App.scss';
 
 function App() {
+  const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 601px)'})
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isDesktopOrLaptop && <Desktop/>}
+      {isTabletOrMobile && <Mobile/>}
     </div>
   );
 }
