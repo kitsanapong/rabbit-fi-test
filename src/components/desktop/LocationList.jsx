@@ -8,9 +8,9 @@ import useLocations from '../../hooks/useLocations';
 
 const LocationList = ({
   openMap = () => {},
-  selectedLocation = [],
+  data = [],
+  remove = () => {},
 }) => {
-  const availableLocations = useLocations()
   return (
     <Grid className="mb-2" container direction="column">
       <Grid container direction="row">
@@ -32,42 +32,44 @@ const LocationList = ({
             color="primary"
             startIcon={<Icon>add_location</Icon>}
             size="small"
-            onClick={() => { openMap() }}
+            onClick={() => {
+              openMap()
+            }}
           >
             Add
           </Button>
         </Grid>
       </Grid>
-      {selectedLocation.length === 0? (
+      {data.length === 0? (
         <Grid className="mb-1" container direction="row" justify="center">
             <Typography variant="overline">No Location selected</Typography>
         </Grid>
-      ) : (
-        <>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-        </>
+      ) : data.map((distItem) => {
+            const { location = {}, maxUnits, cost } = distItem
+            return <LocationItem key={location.name} lable={location.name} units={maxUnits} cost={cost} onRemoveClick={() => { remove(distItem) }}/>
+          }
       )}
     </Grid>
   )
 }
 
-const LocationItem = () => {
+const LocationItem = ({
+  lable = 'Location',
+  units = '99999',
+  cost = '99999',
+  onRemoveClick = () => {},
+}) => {
   return (
     <Grid className="mb-1" container direction="row">
       <Grid item xs={3}></Grid>
       <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>Asoke</Typography>
+        <Typography variant="body2" display="block" gutterBottom>{lable}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>2,000</Typography>
+        <Typography variant="body2" display="block" gutterBottom>{units}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <Typography variant="body2" display="block" gutterBottom>5000.0</Typography>
+        <Typography variant="body2" display="block" gutterBottom>{cost}</Typography>
       </Grid>
       <Grid item xs={2}>
         <Button

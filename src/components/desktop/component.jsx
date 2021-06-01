@@ -96,7 +96,7 @@ const Submmit = () => {
 const UnitInfo = ({ maxUnits = 0, availableUnits = 0 }) => {
   return (
     <>
-      <Grid className="mb-1" container direction="row" alignItems="center">
+      <Grid className="mb-2" container direction="row" alignItems="center">
         <Grid item xs={3}>
           <Typography align="center" variant="button" display="block" gutterBottom>MAXIMUM UNITS</Typography>
         </Grid>
@@ -130,16 +130,21 @@ const Desktop = () => {
         <SelectProduct state={ProductDistribution.productState}/>
         <SelectDate state={ProductDistribution.dateState}/>
         <UnitInfo maxUnits={ProductDistribution.maxUnits} availableUnits={ProductDistribution.availableUnits}/>
-        {/* <LocationList openMap={() => { setShowMap(true) }}/> */}
+        <LocationList
+          data={ProductDistribution.distribution}
+          openMap={() => { ProductDistribution.setShowMap(true) }}
+          remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
+        />
         {/* <Summary/> */}
         {/* <Submmit/> */}
       </Grid>
-      {/* <Map
-        data={availableLocations}
-        open={showMap}
-        onClose={()=> { setShowMap(false) }}
+      <Map
+        data={ProductDistribution.getValidLocations()}
+        open={ProductDistribution.showMap}
+        onClose={()=> { ProductDistribution.setShowMap(false) }}
         style={{ height: '60vh', width: '80vw', margin: 'auto', marginTop: 64 }}
-      /> */}
+        onSelect={(location) => { ProductDistribution.addLocation(location) }}
+      />
     </div>
   )
 }
