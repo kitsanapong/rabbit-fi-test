@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment'
 
 import useProducts from '../../hooks/useProducts';
 import APIs from '../../apis'
@@ -59,6 +60,7 @@ const SelectDate = ({ state = [] }) => {
           onChange={setDate}
           inputVariant="outlined"
           size="small"
+          minDate={moment().add(1, 'd')}
         />
       </Grid>
     </Grid>

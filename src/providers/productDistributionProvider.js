@@ -8,7 +8,7 @@ const Context = React.createContext()
 
 const Provider = ({ children }) => {
   const productState = useState(-1)
-  const dateState = useState(moment())
+  const dateState = useState(moment().add(1, 'd'))
   const [showMap, setShowMap] = useState(false)
   const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
@@ -70,6 +70,10 @@ const Provider = ({ children }) => {
     })
   }
 
+  const shouldEnableAddLocation = () => {
+    return productState[0] != -1
+  }
+
   return (
     <Context.Provider value={{
       productState,
@@ -85,6 +89,7 @@ const Provider = ({ children }) => {
       removeLocation,
       getPayload,
       getValidLocations,
+      shouldEnableAddLocation,
     }}>
       {children}
     </Context.Provider>
