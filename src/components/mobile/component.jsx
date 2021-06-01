@@ -65,7 +65,9 @@ const SelectDate = ({ state = [] }) => {
   )
 }
 
-const Summary = () => {
+const Summary = ({data = []}) => {
+  const totalUnits = data.reduce((sum, item) => { return sum + item.maxUnits }, 0)
+  const totalCost = data.reduce((sum, item) => { return sum + item.cost }, 0)
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
       <Grid item xs={12}>
@@ -73,8 +75,8 @@ const Summary = () => {
       </Grid>
       <Grid container justify="center">
       <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
-        <SummaryItem lable="Total Units" value="20,000 units"/>
-        <SummaryItem lable="Tortal Cost" value="5,000,000.0"/>
+        <SummaryItem lable="Total Units" value={totalUnits + " units"}/>
+        <SummaryItem lable="Tortal Cost" value={totalCost + " Baht"}/>
       </Paper>
       </Grid>
     </Grid>
@@ -186,7 +188,7 @@ const Mobile = () => {
           data={distribution}
           openMap={() => { setShowMap(true) }}
         />
-        <Summary/>
+        <Summary data={distribution}/>
         <Submmit/>
       </Grid>
       <Map
