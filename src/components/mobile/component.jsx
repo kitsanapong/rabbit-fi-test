@@ -36,7 +36,7 @@ const SelectProduct = ({ state = [] }) => {
           >
             <MenuItem value={-1}>Select product</MenuItem>
             {products.map((item) => {
-              return <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+              return <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
             })}
           </Select>
         </FormControl>
@@ -103,7 +103,9 @@ const Submmit = () => {
 
 const LocationList = ({
   openMap = () => {},
+  data = [],
 }) => {
+  console.log(data)
   return (
     <Grid className="mb-2" container direction="column" alignItems="center">
       <Grid item xs={12}>
@@ -111,11 +113,10 @@ const LocationList = ({
       </Grid>
       <Grid container justify="center">
         <Paper elevation={1} className="mb-1" style={{ width: '90vw' }}>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
-          <LocationItem/>
+          {data.map((distItem) => {
+            const { location = {} } = distItem
+            return <LocationItem key={location.name} lable={location.name}/>
+          })}
         </Paper>
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center" className="p-1">
@@ -125,12 +126,12 @@ const LocationList = ({
   )
 }
 
-const LocationItem = () => {
+const LocationItem = ({ lable = 'Location' , units = '99999', cost = '99999'}) => {
   return (
     <Grid container direction="row" alignItems="center" className="p-1">
-      <Grid item xs={4}><Typography variant="subtitle2">ASOK</Typography></Grid> 
-      <Grid item xs={3}><Typography variant="caption">2,000 Units</Typography></Grid> 
-      <Grid item xs={4}><Typography variant="caption">500,000.0 Cost</Typography></Grid> 
+      <Grid item xs={4}><Typography variant="subtitle2">{lable}</Typography></Grid> 
+      <Grid item xs={3}><Typography variant="caption">{units} Units</Typography></Grid> 
+      <Grid item xs={4}><Typography variant="caption">Cost {cost}</Typography></Grid> 
       <Grid item xs={1} >
         <IconButton aria-label="delete" size="small">
           <DeleteIcon fontSize="inherit" />
@@ -144,8 +145,10 @@ const Mobile = () => {
   const productState = useState(-1)
   const dateState = useState()
   const [showMap, setShowMap] = useState(false)
-  const [locations, setLocations] = useState([])
+  const [distribution, setDistribution] = useState([])
   const availableLocations = useLocations()
+  // console.log(distribution)
+  // console.log('===================')
   return (
     <div className="mobile">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -157,6 +160,7 @@ const Mobile = () => {
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
         <LocationList
+          data={distribution}
           openMap={() => { setShowMap(true) }}
         />
         <Summary/>
@@ -167,6 +171,21 @@ const Mobile = () => {
         open={showMap}
         onClose={()=> { setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
+        onSelect={(location) => {
+          // console.log(productState[0])
+          // console.log(dateState[0])
+          // console.log(location)
+          setDistribution(
+            [
+              ...distribution,
+              {
+                location: location,
+                maxUnits: 1000,
+                cost: 1000,
+               }
+            ]
+          )
+        }}
       />
     </div>
   )
