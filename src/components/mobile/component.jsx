@@ -61,6 +61,7 @@ const SelectDate = ({ state = [] }) => {
           inputVariant="outlined"
           size="small"
           minDate={moment().add(1, 'd')}
+          maxDate={moment().add(7, 'd')}
         />
       </Grid>
     </Grid>
