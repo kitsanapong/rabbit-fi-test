@@ -74,6 +74,10 @@ const Provider = ({ children }) => {
     return productState[0] != -1
   }
 
+  const shouldEnableSubmit = () => {
+    return shouldEnableAddLocation() && distribution.length > 0
+  }
+
   return (
     <Context.Provider value={{
       productState,
@@ -90,6 +94,7 @@ const Provider = ({ children }) => {
       getPayload,
       getValidLocations,
       shouldEnableAddLocation,
+      shouldEnableSubmit,
     }}>
       {children}
     </Context.Provider>

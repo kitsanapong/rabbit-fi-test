@@ -86,12 +86,13 @@ const Summary = ({ data = [] }) => {
   )
 }
 
-const Submmit = ({ payload = {} }) => {
+const Submmit = ({ payload = {}, isEnable = false }) => {
   return (
     <Grid container direction="row" justify="center">
       <Button
         variant="contained"
         color="primary"
+        disabled={!isEnable}
         onClick={() => {
           APIs.summitCart(payload)
         }}
@@ -143,7 +144,10 @@ const Desktop = () => {
           remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
         />
         <Summary data={ProductDistribution.distribution}/>
-        <Submmit payload={ProductDistribution.getPayload()}/>
+        <Submmit
+          isEnable={ProductDistribution.shouldEnableSubmit()}
+          payload={ProductDistribution.getPayload()}
+        />
       </Grid>
       <Map
         data={ProductDistribution.getValidLocations()}
