@@ -7,9 +7,17 @@ import Icon from '@material-ui/core/Icon';
 
 import './Map.scss'
 
-const LocationPin = ({ text }) => {
+const LocationPin = ({
+  text = '',
+  onClick = () => {},
+}) => {
   return (
-    <Grid className="location-pickup" container direction="column">
+    <Grid
+      className="location-pickup"
+      container direction="column"
+      onClick={() => { onClick() }}
+      style={{ cursor: 'pointer' }}
+    >
       <div style={{ color: 'white', fontSize: 12, backgroundColor: '#ff9000', textAlign: 'center', borderRadius: 3, padding: '2px 4px', fontWeight: '700' }}>{text}</div>
       <Icon style={{ color: '#ff9000', fontSize: 24 }}>place</Icon>
     </Grid>
@@ -21,12 +29,12 @@ const Map = ({
   open = false,
   onClose = () => {},
   style = {},
+  onSelect = () => {},
 }) => {
   const defaultProps = {
     center: [13.7398994, 100.5391488],
     zoom: 14,
   };
-  console.log(data)
   return (
     <Modal
       open={open}
@@ -40,7 +48,16 @@ const Map = ({
         >
           {data.map((location) => {
             return (
-              <LocationPin key={location.id} lat={location.lat} lng={location.long} text={location.name}/>
+              <LocationPin
+                key={location.id}
+                lat={location.lat}
+                lng={location.long}
+                text={location.name}
+                onClick={() => {
+                  onClose()
+                  onSelect(location)
+                }}
+              />
             )
           })}
         </GoogleMapReact>
