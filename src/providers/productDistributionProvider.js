@@ -19,6 +19,15 @@ const Provider = ({ children }) => {
     setAvailableUnits(maxProductionUnits)
     setMaxUnits(maxProductionUnits)
   }, [productState[0], dateState[0]])
+  
+  const removeLocation = (toRemoveItem) => {
+    const newDistribution = distribution.filter((item) => {
+      return item.location.id !== toRemoveItem.location.id
+    })
+    setDistribution(newDistribution)
+    setAvailableUnits(availableUnits + toRemoveItem.maxUnits)
+  }
+
   return (
     <Context.Provider value={{
       productState,
@@ -30,6 +39,7 @@ const Provider = ({ children }) => {
       setMaxUnits,
       availableUnits,
       setAvailableUnits,
+      removeLocation,
     }}>
       {children}
     </Context.Provider>

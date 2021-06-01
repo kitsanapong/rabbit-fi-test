@@ -219,13 +219,7 @@ const Mobile = () => {
         <LocationList
           data={ProductDistribution.distribution}
           openMap={() => { ProductDistribution.setShowMap(true) }}
-          remove={(toRemoveItem) => {
-            const newDistribution = ProductDistribution.distribution.filter((item) => {
-              return item.location.id !== toRemoveItem.location.id
-            })
-            ProductDistribution.setDistribution(newDistribution)
-            ProductDistribution.setAvailableUnits(ProductDistribution.availableUnits + toRemoveItem.maxUnits)
-          }}
+          remove={(toRemoveItem) => { ProductDistribution.removeLocation(toRemoveItem) }}
         />
         <Summary data={ProductDistribution.distribution}/>
         <Submmit product={ProductDistribution.productState[0]} date={ProductDistribution.dateState[0]} distribution={ProductDistribution.distribution}/>
