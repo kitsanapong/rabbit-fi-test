@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +21,7 @@ import useProducts from '../../hooks/useProducts';
 import useLocations from '../../hooks/useLocations';
 import CalUtils from '../../utils/calculations'
 import APIs from '../../apis'
+import productDistributionProvider from '../../providers/productDistributionProvider';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -203,18 +204,7 @@ const UnitInfo = ({ maxUnits = 0, availableUnits }) => {
 }
 
 const Mobile = () => {
-  const productState = useState(-1)
-  const dateState = useState(moment())
-  const [showMap, setShowMap] = useState(false)
-  const [distribution, setDistribution] = useState([])
-  const availableLocations = useLocations()
-  const [maxUnits, setMaxUnits] = useState(0)
-  const [availableUnits, setAvailableUnits] = useState(0)
-  useEffect(() => {
-    const maxProductionUnits = CalUtils.maxProductionUnits(productState[0], dateState[0])
-    setAvailableUnits(maxProductionUnits)
-    setMaxUnits(maxProductionUnits)
-  }, [productState[0], dateState[0]])
+  const ProductDistribution = useContext(productDistributionProvider.Context)
   return (
     <div className="mobile">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -223,34 +213,34 @@ const Mobile = () => {
             <Typography variant="button">RABBIT PRODUCT DISTRIBUTION</Typography>
           </Paper>
         </Grid>
-        <SelectProduct state={productState}/>
-        <SelectDate state={dateState}/>
-        <UnitInfo maxUnits={maxUnits} availableUnits={availableUnits}/>
+        <SelectProduct state={ProductDistribution.productState}/>
+        <SelectDate state={ProductDistribution.dateState}/>
+        <UnitInfo maxUnits={ProductDistribution.maxUnits} availableUnits={ProductDistribution.availableUnits}/>
         <LocationList
-          data={distribution}
-          openMap={() => { setShowMap(true) }}
+          data={ProductDistribution.distribution}
+          openMap={() => { ProductDistribution.setShowMap(true) }}
           remove={(toRemoveItem) => {
-            const newDistribution = distribution.filter((item) => {
+            const newDistribution = ProductDistribution.distribution.filter((item) => {
               return item.location.id !== toRemoveItem.location.id
             })
-            setDistribution(newDistribution)
-            setAvailableUnits(availableUnits + toRemoveItem.maxUnits)
+            ProductDistribution.setDistribution(newDistribution)
+            ProductDistribution.setAvailableUnits(ProductDistribution.availableUnits + toRemoveItem.maxUnits)
           }}
         />
-        <Summary data={distribution}/>
-        <Submmit product={productState[0]} date={dateState[0]} distribution={distribution}/>
+        <Summary data={ProductDistribution.distribution}/>
+        <Submmit product={ProductDistribution.productState[0]} date={ProductDistribution.dateState[0]} distribution={ProductDistribution.distribution}/>
       </Grid>
       <Map
-        data={getValidLocations(availableLocations, distribution)}
-        open={showMap}
-        onClose={()=> { setShowMap(false) }}
+        data={getValidLocations(ProductDistribution.availableLocations, ProductDistribution.distribution)}
+        open={ProductDistribution.showMap}
+        onClose={()=> { ProductDistribution.setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
         onSelect={(location) => {
-          const maxUnits = CalUtils.maxUnits(availableUnits, location)
-          const [selectedProduct] = productState
-          setDistribution(
+          const maxUnits = CalUtils.maxUnits(ProductDistribution.availableUnits, location)
+          const [selectedProduct] = ProductDistribution.productState
+          ProductDistribution.setDistribution(
             [
-              ...distribution,
+              ...ProductDistribution.distribution,
               {
                 location: location,
                 maxUnits: maxUnits,
@@ -258,7 +248,7 @@ const Mobile = () => {
                }
             ]
           )
-          setAvailableUnits(availableUnits - maxUnits)
+          ProductDistribution.setAvailableUnits(ProductDistribution.availableUnits - maxUnits)
         }}
       />
     </div>

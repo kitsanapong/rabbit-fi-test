@@ -8,6 +8,7 @@ import Desktop from './components/desktop/component'
 import Mobile from './components/mobile/component'
 
 import './App.scss';
+import ProductDistributionProvider from './providers/productDistributionProvider';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,14 +24,16 @@ function App() {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 601px)'})
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' })
   return (
-      <ThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <div className="App">
-          {isDesktopOrLaptop && <Desktop/>}
-          {isTabletOrMobile && <Mobile/>}
-        </div>
-      </MuiPickersUtilsProvider>
-      </ThemeProvider>
+      <ProductDistributionProvider.Provider>
+        <ThemeProvider theme={theme}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <div className="App">
+            {isDesktopOrLaptop && <Desktop/>}
+            {isTabletOrMobile && <Mobile/>}
+          </div>
+        </MuiPickersUtilsProvider>
+        </ThemeProvider>
+      </ProductDistributionProvider.Provider>
   );
 }
 
