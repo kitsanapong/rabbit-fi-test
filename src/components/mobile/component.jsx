@@ -141,6 +141,17 @@ const LocationItem = ({ lable = 'Location' , units = '99999', cost = '99999'}) =
   )
 }
 
+function getValidLocations(allLocations = [], distribution = []) {
+  const selectedLocations = distribution.reduce((idSet, item) => {
+    const { location = {} } = item
+    idSet.add(location.id)
+    return idSet
+  }, new Set())
+  return allLocations.filter((location) => {
+    return !selectedLocations.has(location.id)
+  })
+}
+
 const Mobile = () => {
   const productState = useState(-1)
   const dateState = useState()
@@ -167,7 +178,7 @@ const Mobile = () => {
         <Submmit/>
       </Grid>
       <Map
-        data={availableLocations}
+        data={getValidLocations(availableLocations, distribution)}
         open={showMap}
         onClose={()=> { setShowMap(false) }}
         style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
