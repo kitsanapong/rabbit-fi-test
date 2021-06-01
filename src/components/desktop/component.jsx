@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +16,7 @@ import useProducts from '../../hooks/useProducts';
 import Map from '../Map/Map';
 import LocationList from './LocationList'
 import useLocations from '../../hooks/useLocations';
+import productDistributionProvider from '../../providers/productDistributionProvider';
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -93,10 +94,7 @@ const Submmit = () => {
 }
 
 const Desktop = () => {
-  const productState = useState(-1)
-  const dateState = useState()
-  const [showMap, setShowMap] = useState(false)
-  const availableLocations = useLocations()
+  const ProductDistribution = useContext(productDistributionProvider.Context)
   return (
     <div className="desktop">
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
@@ -105,18 +103,18 @@ const Desktop = () => {
             <Typography variant="button">RABBIT PRODUCT DISTRIBUTION</Typography>
           </Paper>
         </Grid>
-        <SelectProduct state={productState}/>
-        <SelectDate state={dateState}/>
-        <LocationList openMap={() => { setShowMap(true) }}/>
-        <Summary/>
-        <Submmit/>
+        <SelectProduct state={ProductDistribution.productState}/>
+        <SelectDate state={ProductDistribution.dateState}/>
+        {/* <LocationList openMap={() => { setShowMap(true) }}/> */}
+        {/* <Summary/> */}
+        {/* <Submmit/> */}
       </Grid>
-      <Map
+      {/* <Map
         data={availableLocations}
         open={showMap}
         onClose={()=> { setShowMap(false) }}
         style={{ height: '60vh', width: '80vw', margin: 'auto', marginTop: 64 }}
-      />
+      /> */}
     </div>
   )
 }
