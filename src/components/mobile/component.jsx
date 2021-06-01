@@ -113,7 +113,11 @@ const Mobile = () => {
         <Summary/>
         <Submmit/>
       </Grid>
-      <Map open={showMap} onClose={()=> { setShowMap(false) }}/>
+      <Map
+        open={showMap}
+        onClose={()=> { setShowMap(false) }}
+        style={{ width: '100wh', height: 'calc(100vh - 64px)' }}
+      />
     </div>
   )
 }

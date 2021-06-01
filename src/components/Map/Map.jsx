@@ -19,6 +19,7 @@ const AnyReactComponent = ({ text }) => {
 const Map = ({
   open = false,
   onClose = () => {},
+  style = {},
 }) => {
   const defaultProps = {
     center: [13.7398994, 100.5391488],
@@ -29,7 +30,7 @@ const Map = ({
       open={open}
       onClose={() => { onClose() }}
     >
-      <div className="map" style={{ height: '60vh', width: '80vw', margin: 'auto', marginTop: 64 }}>
+      <div className="map" style={{ ...style }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBPgmVVeGhksGlVPvTmClpmaKGCHoepXag' }}
           center={defaultProps.center}

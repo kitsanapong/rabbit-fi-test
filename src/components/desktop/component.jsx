@@ -109,7 +109,11 @@ const Desktop = () => {
         <Summary/>
         <Submmit/>
       </Grid>
-      <Map open={showMap} onClose={()=> { setShowMap(false) }}/>
+      <Map
+        open={showMap}
+        onClose={()=> { setShowMap(false) }}
+        style={{ height: '60vh', width: '80vw', margin: 'auto', marginTop: 64 }}
+      />
     </div>
   )
 }
