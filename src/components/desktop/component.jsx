@@ -8,6 +8,8 @@ import Select from '@material-ui/core/Select';
 import {
   KeyboardDatePicker,
 } from '@material-ui/pickers'
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
 
 import './desktop.scss'
 
@@ -55,6 +57,69 @@ const SelectDate = ({ state = [] }) => {
   )
 }
 
+const LocationList = () => {
+  return (
+    <Grid container direction="column">
+      <Grid container direction="row">
+        <Grid item xs={3}>
+          <Typography variant="button" display="block" gutterBottom>Locations</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="overline" display="block" gutterBottom>Place</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="overline" display="block" gutterBottom>Unit</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="overline" display="block" gutterBottom>Cost</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Icon>add_location</Icon>}
+            size="small"
+          >
+            Add
+          </Button>
+        </Grid>
+      </Grid>
+      <LocationItem/>
+      <LocationItem/>
+      <LocationItem/>
+      <LocationItem/>
+      <LocationItem/>
+      <LocationItem/>
+    </Grid>
+  )
+}
+
+const LocationItem = () => {
+  return (
+    <Grid container direction="row">
+      <Grid item xs={3}></Grid>
+      <Grid item xs={2}>
+        <Typography variant="body1" display="block" gutterBottom>Asoke</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="body1" display="block" gutterBottom>2000</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant="body1" display="block" gutterBottom>5000.0</Typography>
+      </Grid>
+      <Grid item xs={2}>
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+        >
+          Remove
+        </Button>
+      </Grid>
+    </Grid>
+  )
+}
+
 const Desktop = () => {
   const productState = useState(-1)
   const dateState = useState()
@@ -63,6 +128,7 @@ const Desktop = () => {
       <Grid container direction="column" justify="flex-start" alignItems="flex-start">
         <SelectProduct state={productState}/>
         <SelectDate state={dateState}/>
+        <LocationList/>
       </Grid>
     </div>
   )
