@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,12 +10,13 @@ import {
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-import './desktop.scss'
 import useProducts from '../../hooks/useProducts';
 import Map from '../Map/Map';
 import LocationList from './LocationList'
-import useLocations from '../../hooks/useLocations';
+import APIs from '../../apis'
 import productDistributionProvider from '../../providers/productDistributionProvider';
+
+import './desktop.scss'
 
 const SelectProduct = ({ state = [] }) => {
   const [product, setProduct] = state
@@ -84,12 +84,15 @@ const Summary = ({ data = [] }) => {
   )
 }
 
-const Submmit = () => {
+const Submmit = ({ payload = {} }) => {
   return (
     <Grid container direction="row" justify="center">
       <Button
         variant="contained"
         color="primary"
+        onClick={() => {
+          APIs.summitCart(payload)
+        }}
       >Submit</Button>
     </Grid>
   )
